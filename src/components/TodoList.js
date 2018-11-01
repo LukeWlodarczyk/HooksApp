@@ -1,5 +1,7 @@
 import React, { useReducer, useState } from 'react';
 
+import Todo from './Todo';
+
 let numberId = 0;
 
 const todosReducer = (state, action) => {
@@ -27,7 +29,7 @@ const TodoList = () => {
         dispatch({ type: 'ADD', payload: todo })
         setTodo({ text: '', completed: false, id: numberId++ });
     }
-
+    
     return (
         <>
         <input 
@@ -36,14 +38,9 @@ const TodoList = () => {
             onChange={e => setTodo({ ...todo, text: e.target.value })} 
         />
         <button onClick={addTodo}>Add todo</button>
-        {todos.map(t => (
-            <div key={t.id}>
-                <p style={{ textDecoration: t.completed ? 'line-through' : 'none' }} onClick={() => dispatch({ type: 'TOGGLE', payload: t.id })}>{t.text}</p>
-                <button onClick={() => dispatch({ type: 'DELETE', payload: t.id})}>Delete</button>
-            </div>
-        ))}
+        {todos.map(t => <Todo key={t.id} { ...{ ...t, dispatch } } /> )}
         </>
     )
-}
+} 
 
 export default TodoList;
