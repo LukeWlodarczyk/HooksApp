@@ -1,16 +1,23 @@
-import React, { Component, Suspense, lazy } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import Counter from './components/Counter';
 import TodoList from './components/TodoList';
+import Theme from './components/Theme';
 
 const LazyHello = lazy(() => import('./components/Hello'))
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App ">
+
+export const ThemeContext = React.createContext({});
+
+const App = () => {
+
+  const [theme, setTheme] = useState('Light')
+
+  return (
+    <div className="App ">
+      <ThemeContext.Provider value={{ theme, setTheme }}>
         <BrowserRouter>
           <>
             <Header />
@@ -21,11 +28,12 @@ class App extends Component {
               </Suspense>
             } />
             <Route path='/todos' component={TodoList} />
+            <Route path='/context' component={Theme} />
           </>
         </BrowserRouter>
-      </div>
-    );
-  }
+      </ThemeContext.Provider>
+    </div>
+  );
 }
 
 export default App;
