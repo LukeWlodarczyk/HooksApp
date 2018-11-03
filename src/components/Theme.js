@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { ThemeContext } from '../App.js';
 
 const Theme = () => {
 
     const { theme, setTheme } = useContext(ThemeContext);
+
+    useEffect(() => {
+        document.title = "Change app's theme";
+    }, [])
 
     return (
         <>
