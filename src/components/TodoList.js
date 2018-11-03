@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 
 import Todo from './Todo';
 
@@ -29,6 +29,10 @@ const TodoList = () => {
         dispatch({ type: 'ADD', payload: todo })
         setTodo({ text: '', completed: false, id: numberId++ });
     }
+
+    useEffect(() => {
+        document.title = `Todo List - ${todos.length} todos `
+    }, [todos.length])
     
     return (
         <>
